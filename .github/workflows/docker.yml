@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  push_to_registries:
-    name: Push Docker image to multiple registries
+  publish:
+    name: Publish Docker image
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -45,9 +45,9 @@ jobs:
             chksm/blstatus:${{ github.ref }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
             # Github Container Registry
-            ghcr.io/chksm/blstatus:latest
-            ghcr.io/chksm/blstatus:${{ github.ref }}
-            ghcr.io/chksm/blstatus:${{ steps.changelog.outputs.version }}
+            ghcr.io/ChecksumDev/blstatus:latest
+            ghcr.io/ChecksumDev/blstatus:${{ github.ref }}
+            ghcr.io/ChecksumDev/blstatus:${{ steps.changelog.outputs.version }}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v4
