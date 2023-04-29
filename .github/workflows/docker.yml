@@ -2,7 +2,7 @@ name: Publish Docker image
 
 on:
   push:
-      branches:
+    branches:
       - main
 
 jobs:
@@ -43,12 +43,12 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-          # Docker Hub
+            # Docker Hub
             chksm/blstatus:latest
             chksm/blstatus:${{ steps.vars.outputs.sha_short }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
           
-          # GitHub Container Registry 
+            # GitHub Container Registry 
             ghcr.io/ChecksumDev/blstatus:latest
             ghcr.io/ChecksumDev/blstatus:${{ steps.vars.outputs.sha_short }}
             ghcr.io/ChecksumDev/blstatus:${{ steps.changelog.outputs.version }}
