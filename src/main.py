@@ -21,7 +21,7 @@ from platform import system
 
 from aiosqlite import connect as sql_connect
 from dotenv import load_dotenv
-from nextcord import Embed, Game, Intents, Color, Status, TextChannel
+from nextcord import Color, Embed, Game, Intents, Status, TextChannel
 from nextcord.errors import ApplicationError
 from nextcord.ext.commands import Bot
 from nextcord.interactions import Interaction
