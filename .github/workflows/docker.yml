@@ -35,6 +35,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Add short SHA to environment
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
@@ -42,11 +45,11 @@ jobs:
           images: |
             # Docker Hub
             chksm/blstatus:latest
-            chksm/blstatus:${{ github.ref }}
+            chksm/blstatus:${{ SHORT_SHA }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
             # Github Container Registry
             ghcr.io/ChecksumDev/blstatus:latest
-            ghcr.io/ChecksumDev/blstatus:${{ github.ref }}
+            ghcr.io/ChecksumDev/blstatus:${{ SHORT_SHA }}
             ghcr.io/ChecksumDev/blstatus:${{ steps.changelog.outputs.version }}
 
       - name: Build and push Docker images
