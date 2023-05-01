@@ -35,9 +35,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
@@ -45,12 +42,10 @@ jobs:
           images: |
             # Docker Hub
             chksm/blstatus:latest
-            chksm/blstatus:${{ steps.vars.outputs.sha_short }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
           
             # GitHub Container Registry 
             ghcr.io/ChecksumDev/blstatus:latest
-            ghcr.io/ChecksumDev/blstatus:${{ steps.vars.outputs.sha_short }}
             ghcr.io/ChecksumDev/blstatus:${{ steps.changelog.outputs.version }}
 
       - name: Build and push Docker images
