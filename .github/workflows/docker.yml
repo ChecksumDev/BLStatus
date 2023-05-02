@@ -45,25 +45,24 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v4
+      - name: Push Docker image to Docker Hub
+        uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
-          images: |
-            ghcr.io/chksm/blstatus
-            chksm/blstatus
           tags: |
-            latest
-            ${{ steps.vars.outputs.sha_short }}
-            ${{ steps.changelog.outputs.version }}
+            chksm/blstatus:latest
+            chksm/blstatus:${{ env.sha_short }}
+            chksm/blstatus:${{ steps.changelog.outputs.version }}
 
-      - name: Create a release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push Docker image to GitHub Packages
+        uses: docker/build-push-action@v2
         with:
-          tag_name: ${{ steps.changelog.outputs.version }}
-          release_name: v${{ steps.changelog.outputs.version }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
-          draft: false
-          prerelease: false
+          context: .
+          push: true
+          tags: |
+            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:latest
+            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:${{ env.sha_short }}
+            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:${{ steps.changelog.outputs.version }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
