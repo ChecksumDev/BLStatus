@@ -54,6 +54,6 @@ jobs:
             chksm/blstatus:${{ env.sha_short }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
             
-            ghcr.io/chksm/blstatus:latest
-            ghcr.io/chksm/blstatus:${{ env.sha_short }}
-            ghcr.io/chksm/blstatus:${{ steps.changelog.outputs.version }}
+            ghcr.io/${{ github.actor }}/blstatus:latest
+            ghcr.io/${{ github.actor }}/blstatus:${{ env.sha_short }}
+            ghcr.io/${{ github.actor }}/blstatus:${{ steps.changelog.outputs.version }}
