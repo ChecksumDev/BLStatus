@@ -50,8 +50,9 @@ class Client(Bot):
         with open("version.json", "r") as f:
             self.version = load(f)["version"]
 
-        cogs = ["cogs." + x[:-3]
-                for x in listdir("src/cogs") if x.endswith(".py")]
+        cogs_dir = path.join(path.dirname(path.abspath(__file__)), "src/cogs")
+        cogs = ["cogs." + x[:-3] for x in listdir(cogs_dir) if x.endswith(".py")]
+
         for cog in cogs:
             try:
                 self.load_extension(cog)
