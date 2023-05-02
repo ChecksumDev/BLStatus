@@ -51,7 +51,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
+          images: |
             ghcr.io/chksm/blstatus:latest
             ghcr.io/chksm/blstatus:${{ steps.vars.outputs.sha_short }}
             ghcr.io/chksm/blstatus:${{ steps.changelog.outputs.version }}
