@@ -52,10 +52,9 @@ jobs:
           file: ./Dockerfile
           push: true
           images: |
-            ghcr.io/chksm/blstatus:latest
-            ghcr.io/chksm/blstatus:${{ steps.vars.outputs.sha_short }}
-            ghcr.io/chksm/blstatus:${{ steps.changelog.outputs.version }}
-            
-            chksm/blstatus:latest
-            chksm/blstatus:${{ steps.vars.outputs.sha_short }}
-            chksm/blstatus:${{ steps.changelog.outputs.version }}
+            ghcr.io/chksm/blstatus
+            chksm/blstatus
+          tags: |
+            latest
+            ${{ steps.vars.outputs.sha_short }}
+            ${{ steps.changelog.outputs.version }}
