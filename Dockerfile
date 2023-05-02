@@ -11,11 +11,20 @@ RUN apk add --no-cache python3 py3-pip
 # App directory
 WORKDIR /app
 
+# Create a user
+RUN adduser -D blstatus && chown -R blstatus /app
+
+# Switch to user
+USER blstatus
+
 # Copy requirements.txt
 COPY requirements.txt .
 
 # Install requirements
 RUN pip3 install -r requirements.txt
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
 
 # Copy app
 COPY . .
