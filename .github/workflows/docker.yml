@@ -54,15 +54,3 @@ jobs:
             chksm/blstatus:latest
             chksm/blstatus:${{ env.sha_short }}
             chksm/blstatus:${{ steps.changelog.outputs.version }}
-
-      - name: Push Docker image to GitHub Packages
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: |
-            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:latest
-            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:${{ env.sha_short }}
-            docker.pkg.github.com/${{ github.repository }}/chksm/blstatus:${{ steps.changelog.outputs.version }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
