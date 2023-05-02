@@ -1,3 +1,9 @@
+# This docker ci publishes a docker image to dockerhub and github packages
+# there are three images published: latest, sha and version
+# chksm/blstatus:latest
+# chksm/blstatus:<sha>
+# chksm/blstatus:<version>
+
 name: Docker Image CI
 
 on:
@@ -44,13 +50,12 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            chksm/blstatus:latest
-            chksm/blstatus:${{ steps.vars.outputs.sha_short }}
-            chksm/blstatus:${{ steps.changelog.outputs.version }}
-            
             ghcr.io/chksm/blstatus:latest
             ghcr.io/chksm/blstatus:${{ steps.vars.outputs.sha_short }}
             ghcr.io/chksm/blstatus:${{ steps.changelog.outputs.version }}
+            
+            chksm/blstatus:latest
+            chksm/blstatus:${{ steps.vars.outputs.sha_short }}
+            chksm/blstatus:${{ steps.changelog.outputs.version }}
