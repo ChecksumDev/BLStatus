@@ -16,7 +16,7 @@
 
 from json import load
 from logging import INFO, basicConfig, getLogger
-from os import environ, listdir
+from os import environ, listdir, mkdir
 from platform import system
 
 from aiosqlite import connect as sql_connect
@@ -64,6 +64,10 @@ class Client(Bot):
             self.logger.info(
                 f"Logged in as {self.user} ({self.user.id}) on {len(self.guilds)} guilds")
             await self.change_presence(activity=Game(name="Beat Saber"), status=Status.idle)
+
+        # Ensure DATABASE exists
+        if not DATABASE.parent.exists():
+            mkdir(DATABASE.parent)
 
         async with sql_connect(DATABASE) as conn:
             # Initialize the database

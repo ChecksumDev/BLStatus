@@ -8,6 +8,7 @@ An application that monitors the status of the BeatLeader servers.
 
 ```bash
 docker run -d --name beatleader-status \
+              -v /path/to/data:/app/data/ \
               -e TOKEN=YOUR_TOKEN_HERE \
               ghcr.io/checksumdev/blstatus:latest
 ``` 
